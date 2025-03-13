@@ -27,15 +27,7 @@ export const GuestFormValidation = z.object({
     .string()
     .min(2, "Document Type must be at least 2 characters")
     .max(50, "Document Type must be at most 50 characters"),
-  guestCuantity: z.number().min(1, "Reservations should contain at least 1 person").max(10, "Reservations should contain at most 10 person"),
   identificationDocument: z.custom<File[]>().optional(),
-  ota: z
-    .string()
-    .min(5, "ota must be at least 5 characters")
-    .max(50, "ota Type must be at most 50 characters"),
-    specialRequirements: z
-    .string()
-    .optional(),
   privacyConsent: z
     .boolean()
     .default(false)
@@ -44,19 +36,27 @@ export const GuestFormValidation = z.object({
     }),
 });
 
-export const CreateAppointmentSchema = z.object({
+export const CreateReservationSchema = z.object({
   schedule: z.coerce.date(),
   note: z.string().optional(),
-  cancellationReason: z.string().optional(),
+  ota: z
+    .string()
+    .min(5, "ota must be at least 5 characters")
+    .max(50, "ota Type must be at most 50 characters"),
+    specialRequirements: z
+    .string()
+    .optional(),
+    guestCuantity: z.number().min(1, "Reservations should contain at least 1 person").max(10, "Reservations should contain at most 10 person"),
+
+
 });
 
-export const ScheduleAppointmentSchema = z.object({
+export const ScheduleReservationSchema = z.object({
   schedule: z.coerce.date(),
   note: z.string().optional(),
-  cancellationReason: z.string().optional(),
 });
 
-export const CancelAppointmentSchema = z.object({
+export const CancelReservationSchema = z.object({
   schedule: z.coerce.date(),
   reason: z.string().optional(),
   note: z.string().optional(),
@@ -66,13 +66,13 @@ export const CancelAppointmentSchema = z.object({
     .max(500, "Reason must be at most 500 characters"),
 });
 
-export function getAppointmentSchema(type: string) {
+export function getReservationSchema(type: string) {
   switch (type) {
     case "create":
-      return CreateAppointmentSchema;
+      return CreateReservationSchema;
     case "cancel":
-      return CancelAppointmentSchema;
+      return CancelReservationSchema;
     default:
-      return ScheduleAppointmentSchema;
+      return ScheduleReservationSchema;
   }
 }

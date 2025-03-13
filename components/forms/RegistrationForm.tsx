@@ -1,5 +1,6 @@
 "use client"
 import { useState } from "react"
+import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
@@ -7,8 +8,10 @@ import { Form } from "@/components/ui/form"
 import CustomFormField, { FormFieldType } from "../ui/customFormField"
 import { UserFormValidation } from "@/lib/validation"
 import SubmitButton from "../ui/submitButton"
+import { createGuest } from "@/lib/actions/guests.actions"
 
 const RegistrationForm = () => {
+  const router = useRouter();
   const [isLoading, setisLoading] = useState(false)
 
   const form = useForm<z.infer<typeof UserFormValidation>>({
@@ -19,13 +22,16 @@ const RegistrationForm = () => {
     },
   })
 
-  function onSubmit({fullname, email}: z.infer<typeof UserFormValidation>) {
+  const onSubmit = async ({fullname, email}: z.infer<typeof UserFormValidation>) => {
     setisLoading(true);
 
     try {
       const userData = {fullname, email}
 
-      console.log(userData)
+      const guest = await createGuest(userData)
+
+      if (guest) router.push(`/guest/${guest.$id}/register`)
+      
     } catch (error) {
       console.log(error)
     }
