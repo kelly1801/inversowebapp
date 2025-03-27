@@ -10,4 +10,7 @@ module.exports = {
       },
     ],
   },
+  env: {
+    STRAPI_URL: process.env.STRAPI_URL || "http://localhost:1337", // Fallback if env is missing
+  },
 };
