@@ -4,6 +4,8 @@ import Image from "next/image";
 import ReactDatePicker from "react-datepicker";
 import { Control } from "react-hook-form";
 import PhoneInput from "react-phone-number-input";
+import 'react-phone-number-input/style.css'
+import 'react-datepicker/dist/react-datepicker.css';
 
 import { Checkbox } from "./checkbox";
 import {
@@ -107,25 +109,20 @@ const RenderInput = ({ field, props }: { field: any; props: CustomProps }) => {
       );
     case FormFieldType.DATE_PICKER:
       return (
-        <div className="flex rounded-md border border-purple-50 bg-purple-800">
-          <Image
-            src="/assets/icons/calendar.svg"
-            height={24}
-            width={24}
-            alt="user"
-            className="ml-2"
-          />
           <FormControl>
             <ReactDatePicker
+              showIcon
               showTimeSelect={props.showTimeSelect ?? false}
               selected={field.value}
               onChange={(date: Date) => field.onChange(date)}
               timeInputLabel="Time:"
               dateFormat={props.dateFormat ?? "MM/dd/yyyy"}
-              wrapperClassName="date-picker"
+              popperPlacement="top-end"
+              className="overflow-hidden text-14-medium rounded-md outline-none"
+              toggleCalendarOnIconClick
+
             />
           </FormControl>
-        </div>
       );
     case FormFieldType.SELECT:
       return (

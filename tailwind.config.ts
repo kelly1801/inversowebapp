@@ -1,9 +1,11 @@
 import type { Config } from "tailwindcss";
 
-//const { fontFamily } = require("tailwindcss/defaultTheme");
+interface ExtendedConfig extends Config {
+  safelist?: Array<string | { pattern: RegExp }>;
+}
 
-const config = {
-  //darkMode: ["class"],
+const config:  ExtendedConfig = {
+  //darkMode: "class", // Changed to string literal if you're using class-based dark mode
   content: [
     "./pages/**/*.{ts,tsx}",
     "./components/**/*.{ts,tsx}",
@@ -22,12 +24,9 @@ const config = {
     extend: {
       colors: {
         green: {
-
           10: "#38ffb6",
           600: "#31c895",
           700: "#32bb8d",
-          
-          
         },
         blue: {
           400: "#84b7cc",
@@ -47,11 +46,7 @@ const config = {
         },
         dark: {
           200: "#0c0c0c",
-         
         },
-      },
-      fontFamily: {
-       // sans: ["var(--font-sans)", ...fontFamily.sans],
       },
       backgroundImage: {
         appointments: "url('/assets/images/appointments-bg.png')",
@@ -79,7 +74,12 @@ const config = {
       },
     },
   },
- // plugins: [require("tailwindcss-animate")],
+  safelist: [
+    { pattern: /^lg:w-\[.*%\]$/ }
+  ],
+  plugins: [
+    // require("tailwindcss-animate"), // Uncomment if using
+  ],
 } satisfies Config;
 
 export default config;

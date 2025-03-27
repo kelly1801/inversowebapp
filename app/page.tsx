@@ -1,29 +1,77 @@
-import RegistrationForm from "@/components/forms/RegistrationForm";
-import Image from "next/image";
-import Link from "next/link";
+import qs from "qs";
+import { notFound } from "next/navigation";
 
-export default function Home() {
+import { fetchAPI } from "@/lib/landing/fetch-api";
+import { getStrapiURL } from "@/lib/landing/utils";
+import { blockRenderer } from "@/lib/landing/block-renderer";
+import { Block } from "@/types";
+
+const homePageQuery = qs.stringify(
+  {
+    populate: {
+      blocks: {
+        on: {
+          "layout.top-nav": {
+            populate: {
+              Logo: {
+                populate: {
+                  LogoImg: {
+                    fields: ["url", "alternativeText", "name"],
+                  },
+                },
+              },
+              links: {
+                populate: true,
+              },
+            },
+          },
+
+          "layout.seccion-espacios": {
+            populate: {
+              imageSrc: { fields: ["url", "alternativeText", "name"] }, // ✅ Populate the single image field
+              galleryImages: { fields: ["url", "alternativeText", "name"] }, // ✅ Populate the multiple images
+            },
+          },
+          
+        },
+      },
+    },
+  },
+  { encodeValuesOnly: true } // Prevents encoding issues
+);
+
+
+
+
+
+async function loader() {
+  // const authToken = process.env.STRAPI_API_TOKEN;
+  const BASE_URL = getStrapiURL();
+  const path = "/api/home-page";
+  const url = new URL(path, BASE_URL);
+
+  url.search = homePageQuery;
+
+  const data = await fetchAPI(url.href, {
+    method: "GET",
+  });
+
+  if (!data.data) notFound();
+
+  const blocks = data?.data?.blocks || [];
+  return { blocks };
+}
+
+export default async function Page() {
+  const data = await loader();
+  const blocks = data.blocks;
+
   return (
-    <div className="flex md:h-screen md:max-h-screen justify-between">
-      <section className="w-full h-full">
-        <div className="h-screen flex flex-col justify-between p-10">
-          <Image src={"/logos/logo-inverted.png"} width={100} height={100} alt="inverso logo" className="self-center md:self-start" />
-          <RegistrationForm />
-          <div className="flex justify-between w-full">
-            <p className="justify-items-end text-xs">© 2025 inverso</p>
-            <Link href="/?admin=true" className="text-green-10 text-xs hover:text-green-600">
-              Admin
-            </Link>
-          </div>
-        </div>
-      </section>
-      <Image
-        src="images/hero.svg"
-        height={1000}
-        width={1000}
-        alt="people talking"
-        className="max-w-[50%] h-screen hidden md:inline"
-      />
+    <div className="flex flex-col">
+
+      {blocks.map((block: Block, index: number) => {
+        return blockRenderer(block, index);
+      })}
     </div>
   );
 }

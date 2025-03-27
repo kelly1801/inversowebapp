@@ -1,0 +1,64 @@
+{
+  "collectionName": "components_layout_seccion_espacios",
+  "info": {
+    "displayName": "SeccionEspacios",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "imageSrc": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "galleryImages": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "imageWidth": {
+      "type": "enumeration",
+      "enum": [
+        "a20%",
+        "a30%",
+        "a40%",
+        "a50%"
+      ],
+      "default": "a50%"
+    },
+    "reverse": {
+      "type": "boolean",
+      "default": false
+    },
+    "subtitle": {
+      "type": "string"
+    },
+    "value": {
+      "type": "string"
+    },
+    "textButton": {
+      "type": "string"
+    },
+    "buttonLink": {
+      "type": "string"
+    }
+  }
+}

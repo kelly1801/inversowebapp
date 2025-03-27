@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_shared_navlinks",
+  "info": {
+    "displayName": "navlink"
+  },
+  "options": {},
+  "attributes": {
+    "Text": {
+      "type": "string"
+    },
+    "external": {
+      "type": "boolean",
+      "default": false
+    },
+    "href": {
+      "type": "string"
+    }
+  }
+}

@@ -10,7 +10,7 @@ import { UserFormValidation } from "@/lib/validation"
 import SubmitButton from "../ui/submitButton"
 import { createGuest } from "@/lib/actions/guests.actions"
 
-const RegistrationForm = () => {
+const GuestForm = () => {
   const router = useRouter();
   const [isLoading, setisLoading] = useState(false)
 
@@ -30,7 +30,12 @@ const RegistrationForm = () => {
 
       const guest = await createGuest(userData)
 
-      if (guest) router.push(`/guest/${guest.$id}/register`)
+      if (guest) {
+        setisLoading(false)
+console.log("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr")
+        router.push(`/guests/${guest.$id}/register`)
+      }
+        
       
     } catch (error) {
       console.log(error)
@@ -52,4 +57,4 @@ const RegistrationForm = () => {
     </Form>)
 }
 
-export default RegistrationForm
+export default GuestForm

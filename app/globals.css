@@ -1,2 +1,364 @@
 @config "../tailwind.config.ts";
 @import "tailwindcss";
+
+@tailwind utilities;
+
+/* app/globals.css */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* ========================================== TAILWIND STYLES */
+@layer base {
+  /* Remove scrollbar */
+  .remove-scrollbar::-webkit-scrollbar {
+    width: 0px;
+    height: 0px;
+    border-radius: 0px;
+  }
+
+  .remove-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .remove-scrollbar::-webkit-scrollbar-thumb {
+    background: transparent;
+    border-radius: 0px;
+  }
+
+  .remove-scrollbar::-webkit-scrollbar-thumb:hover {
+    /* background: #1e2238; */
+    background: transparent;
+  }
+}
+
+@layer utilities {
+  /* ===== UTILITIES */
+  .sidebar {
+    @reference remove-scrollbar w-full max-w-72 flex-col overflow-auto bg-black-800 px-7 py-10;
+  }
+
+  .left-sidebar {
+    @reference hidden lg:flex;
+  }
+
+  .right-sidebar {
+    @reference hidden xl:flex;
+  }
+
+  .clip-text {
+    @reference bg-clip-text text-transparent;
+  }
+
+  .bg-image {
+    @reference bg-black-900 bg-light-rays bg-cover bg-no-repeat;
+  }
+
+  .header {
+    @reference text-32-bold md:text-36-bold;
+  }
+
+  .sub-header {
+    @reference text-18-bold md:text-24-bold;
+  }
+
+  .container {
+    @reference relative flex-1 overflow-y-auto px-[5%];
+  }
+
+  .sub-container {
+    @reference mx-auto flex size-full flex-col py-10;
+  }
+
+  .side-img {
+    @reference hidden h-full object-cover md:block;
+  }
+
+  .copyright {
+    @reference text-14-regular justify-items-end text-center text-dark-600 xl:text-left;
+  }
+
+  /* ==== SUCCESS */
+  .success-img {
+    @reference m-auto flex flex-1 flex-col items-center justify-between gap-10 py-10;
+  }
+
+  .request-details {
+    @reference flex w-full flex-col items-center gap-8 border-y-2 border-dark-400 py-8 md:w-fit md:flex-row;
+  }
+
+  /* ===== ADMIN */
+  .admin-header {
+    @reference sticky top-3 z-20 mx-3 flex items-center justify-between rounded-2xl bg-dark-200 px-[5%] py-5 shadow-lg xl:px-12;
+  }
+
+  .admin-main {
+    @reference flex flex-col items-center space-y-6 px-[5%] pb-12 xl:space-y-12 xl:px-12;
+  }
+
+  .admin-stat {
+    @reference flex w-full flex-col justify-between gap-5 sm:flex-row xl:gap-10;
+  }
+
+  /* ==== FORM */
+  .radio-group {
+    @reference flex h-full flex-1 items-center gap-2 rounded-md border border-dashed border-dark-500 bg-dark-400 p-3;
+  }
+
+  .checkbox-label {
+    @reference cursor-pointer text-sm font-medium text-dark-700 peer-disabled:cursor-not-allowed peer-disabled:opacity-70 md:leading-none;
+  }
+
+  /* ==== File Upload */
+  .file-upload {
+    @reference text-12-regular text-red-500 flex cursor-pointer  flex-col items-center justify-center gap-3 rounded-md border border-dashed border-dark-500 bg-dark-400 p-5;
+  }
+
+  .file-upload_label {
+    @reference flex flex-col justify-center gap-2 text-center text-dark-600;
+  }
+
+  /* ==== Stat Card */
+  .stat-card {
+    @reference flex flex-1 flex-col gap-6 rounded-2xl bg-cover p-6 shadow-lg;
+  }
+
+  /* ==== Status Badge */
+  .status-badge {
+    @reference flex w-fit items-center gap-2 rounded-full px-4 py-2;
+  }
+
+  /* Data Table */
+  .data-table {
+    @reference z-10 w-full overflow-hidden rounded-lg border border-dark-400 shadow-lg;
+  }
+
+  .table-actions {
+    @reference flex w-full items-center justify-between space-x-2 p-4;
+  }
+
+  /* ===== ALIGNMENTS */
+  .flex-center {
+    @reference flex items-center justify-center;
+  }
+
+  .flex-between {
+    @reference flex items-center justify-between;
+  }
+
+  /* ===== TYPOGRAPHY */
+  .text-36-bold {
+    @reference text-[36px] leading-[40px] font-bold;
+  }
+
+  .text-24-bold {
+    @reference text-[24px] leading-[28px] font-bold;
+  }
+
+  .text-32-bold {
+    @reference text-[32px] leading-[36px] font-bold;
+  }
+
+  .text-18-bold {
+    @reference text-[18px] leading-[24px] font-bold;
+  }
+
+  .text-16-semibold {
+    @reference text-[16px] leading-[20px] font-semibold;
+  }
+
+  .text-16-regular {
+    @reference text-[16px] leading-[20px] font-normal;
+  }
+
+  .text-14-medium {
+    @reference text-[14px] leading-[18px] font-medium;
+  }
+
+  .text-14-regular {
+    @reference text-[14px] leading-[18px] font-normal;
+  }
+
+  .text-12-regular {
+    @reference text-[12px] leading-[16px] font-normal;
+  }
+
+  .text-12-semibold {
+    @reference text-[12px] leading-[16px] font-semibold;
+  }
+
+  /* =====  SHADCN OVERRIDES */
+  .shad-primary-btn {
+    @reference bg-green-500 text-white !important;
+  }
+
+  .shad-danger-btn {
+    @reference bg-red-700 text-white !important;
+  }
+
+  .shad-gray-btn {
+    @reference border border-dark-500 cursor-pointer bg-dark-400 text-white !important;
+  }
+
+  .shad-input-label {
+    @reference text-14-medium text-dark-700 !important;
+  }
+
+  .shad-input {
+    @reference bg-dark-400 placeholder:text-dark-600 border-dark-500 h-11 focus-visible:ring-0 focus-visible:ring-offset-0 !important;
+  }
+
+  .shad-input-icon {
+    @reference bg-dark-400 placeholder:text-dark-600 border-dark-500 h-11 focus-visible:ring-0 focus-visible:ring-offset-0 !important;
+  }
+
+  .shad-textArea {
+    @reference bg-dark-400 placeholder:text-dark-600 border-dark-500 focus-visible:ring-0 focus-visible:ring-offset-0 !important;
+  }
+
+  .shad-combobox-item {
+    @reference data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 !important;
+  }
+
+  .shad-combobox-trigger {
+    @reference h-11 !important;
+  }
+
+  .shad-select-trigger {
+    @reference bg-dark-400  placeholder:text-dark-600 border-dark-500 h-11 focus:ring-0 focus:ring-offset-0 !important;
+  }
+
+  .shad-select-content {
+    @reference bg-dark-400 border-dark-500 !important;
+  }
+
+  .shad-dialog {
+    @reference bg-dark-400 border-dark-500 !important;
+  }
+
+  .shad-dialog button {
+    @reference focus:ring-0 focus:ring-offset-0 focus-visible:border-none focus-visible:outline-none focus-visible:ring-transparent focus-visible:ring-offset-0 !important;
+  }
+
+  .shad-error {
+    @reference text-red-400 !important;
+  }
+
+  .shad-table {
+    @reference rounded-lg overflow-hidden !important;
+  }
+
+  .shad-table-row-header {
+    @reference border-b border-dark-400 text-light-200 hover:bg-transparent !important;
+  }
+
+  .shad-table-row {
+    @reference border-b border-dark-400 text-light-200 !important;
+  }
+
+  .shad-otp {
+    @reference w-full flex justify-between !important;
+  }
+
+  .shad-otp-slot {
+    @reference text-36-bold justify-center flex border border-dark-500 rounded-lg size-16 gap-4 !important;
+  }
+
+  .shad-alert-dialog {
+    @reference space-y-5 bg-dark-400 border-dark-500 outline-none !important;
+  }
+
+  .shad-sheet-content button {
+    @reference top-2 focus:ring-0 focus:ring-offset-0 focus-visible:border-none focus-visible:outline-none focus-visible:ring-transparent focus-visible:ring-offset-0 !important;
+  }
+
+  /* =====  REACT PHONE NUMBER INPUT OVERRIDES */
+  .input-phone {
+    @reference mt-2 h-11 rounded-md px-3 text-sm placeholder:text-purple-600 !important;
+  }
+
+  /* =====  REACT DATE PICKER OVERRIDES */
+  .date-picker {
+    @reference bg-red-500 overflow-hidden placeholder:text-purple-600  h-11 text-14-medium rounded-md px-3 outline-none !important ;
+  }
+}
+
+.react-datepicker-wrapper {
+  height: 2.6rem !important;
+  margin-top: 5px;
+}
+.react-datepicker__calendar-icon {
+    color: #ffffff !important;
+    fill: currentColor !important;
+    margin-top: 5px;
+}
+.react-datepicker,
+.react-datepicker__time,
+.react-datepicker__header,
+.react-datepicker__current-month,
+.react-datepicker__day-name,
+.react-datepicker__day,
+.react-datepicker-time__header {
+  background-color: #1a1d21 !important;
+  border-color: #363a3d !important;
+  color: #abb8c4 !important;
+}
+
+.react-datepicker__current-month,
+.react-datepicker__day-name,
+.react-datepicker-time__header {
+  color: #ffffff !important;
+}
+
+.react-datepicker__triangle {
+  fill: #362a5c !important;
+  color: #1a1d21 !important;
+  stroke: #1a1d21 !important;
+}
+
+.react-datepicker__time-list-item:hover {
+  background-color: #363a3d !important;
+}
+
+.react-datepicker__input-container input {
+  background-color: #362a5c !important;
+  width: 100%;
+  height: 100%;
+  outline: none;
+}
+.react-datepicker__input-container {
+   height: 100%;
+  }
+  
+
+.react-datepicker__day--selected {
+  background-color: #24ae7c !important;
+  color: #ffffff !important;
+  border-radius: 4px;
+}
+
+.react-datepicker__time-list-item--selected {
+  background-color: #24ae7c !important;
+}
+
+.react-datepicker__time-container {
+  border-left: 1px solid #363a3d !important;
+}
+
+.react-datepicker__time-list-item {
+  display: flex !important;
+  align-items: center !important;
+}
+
+/* =====  REACT PHONE NUMBER INPUT OVERRIDES */
+.PhoneInputInput {
+  outline: none;
+  margin-left: 4px;
+  background: #362a5c;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.PhoneInputInput::placeholder {
+  color: #362a5c;
+}
