@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_shared_social_media_links",
+  "info": {
+    "displayName": "socialMediaLinks",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "link": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.navlink"
+    }
+  }
+}

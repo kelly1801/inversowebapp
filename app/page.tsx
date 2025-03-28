@@ -1,77 +1,112 @@
 import qs from "qs";
 import { notFound } from "next/navigation";
-
 import { fetchAPI } from "@/lib/landing/fetch-api";
 import { getStrapiURL } from "@/lib/landing/utils";
 import { blockRenderer } from "@/lib/landing/block-renderer";
 import { Block } from "@/types";
+import { cache } from "react";
 
-const homePageQuery = qs.stringify(
-  {
-    populate: {
-      blocks: {
-        on: {
-          "layout.top-nav": {
-            populate: {
-              Logo: {
-                populate: {
-                  LogoImg: {
-                    fields: ["url", "alternativeText", "name"],
-                  },
-                },
-              },
-              links: {
-                populate: true,
-              },
-            },
-          },
-
-          "layout.seccion-espacios": {
-            populate: {
-              imageSrc: { fields: ["url", "alternativeText", "name"] }, // ✅ Populate the single image field
-              galleryImages: { fields: ["url", "alternativeText", "name"] }, // ✅ Populate the multiple images
-            },
-          },
-          
-        },
-      },
-    },
-  },
-  { encodeValuesOnly: true } // Prevents encoding issues
-);
-
-
-
-
-
-async function loader() {
-  // const authToken = process.env.STRAPI_API_TOKEN;
+// ✅ Memoized Data Fetcher to cache responses
+const fetchHomePageData = cache(async () => {
   const BASE_URL = getStrapiURL();
   const path = "/api/home-page";
   const url = new URL(path, BASE_URL);
 
-  url.search = homePageQuery;
+  const query = qs.stringify(
+    {
+      populate: {
+        blocks: {
+          on: {
+            "layout.top-nav": {
+              populate: {
+                Logo: {
+                  populate: {
+                    LogoImg: {
+                      fields: ["url", "alternativeText", "name"],
+                    },
+                  },
+                },
+                links: { populate: true },
+              },
+            },
+            "layout.seccion-espacios": {
+              populate: {
+                imageSrc: { fields: ["url", "alternativeText", "name"] },
+                galleryImages: { fields: ["url", "alternativeText", "name"] },
+              },
+            },
+            "layout.hero-seccion": {
+              populate: {
+                imageSrc: { fields: ["url", "alternativeText", "name"] },
+                buttons: { populate: true },
+              },
+            },
+            "layout.spacer": { populate: true },
+            "layout.footer": {
+              populate: {
+                logo: {
+                  populate: {
+                    LogoImg: {
+                      fields: ["url", "alternativeText", "name"],
+                    },
+                  },
+                },
+                links: { populate: true },
+                socialLinks: {
+                  populate: {
+                    link: {
+                      populate: {
+                        icon: { fields: ["url", "alternativeText", "name"] },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+            "layout.text-seccion": {
+              populate: {
+                buttons: { populate: true },
+              },
+            },
+            "layout.about-seccion": {
+              populate: {
+                mainImageSrc: { fields: ["url", "alternativeText", "name"] },
+                sideImageSrc: { fields: ["url", "alternativeText", "name"] },
+              },
+            },
+            "layout.background-seccion": {
+              populate: {
+                backgroundImage: { fields: ["url", "alternativeText", "name"] },
+                backgroundVideo: { fields: ["url", "alternativeText", "name"] },
+                buttons: { populate: true },
+              },
+            },
+            "layout.map": { populate: true },
+          },
+        },
+      },
+    },
+    { encodeValuesOnly: true }
+  );
 
-  const data = await fetchAPI(url.href, {
-    method: "GET",
-  });
+  url.search = query;
 
-  if (!data.data) notFound();
+  const data = await fetchAPI(url.href, { method: "GET" });
 
-  const blocks = data?.data?.blocks || [];
-  return { blocks };
-}
+  if (!data?.data) notFound();
 
-export default async function Page() {
-  const data = await loader();
-  const blocks = data.blocks;
+  return data.data.blocks || [];
+});
+
+// ✅ Memoized Page Component
+const Page = async () => {
+  const blocks = await fetchHomePageData();
 
   return (
-    <div className="flex flex-col">
-
-      {blocks.map((block: Block, index: number) => {
-        return blockRenderer(block, index);
-      })}
+    <div className="flex flex-col overflow-x-hidden">
+      {blocks.map((block: Block, index: number) => blockRenderer(block, index))}
     </div>
   );
-}
+};
+
+export default Page;

@@ -43,7 +43,7 @@ const SpaceSection: React.FC<SpaceSectionProps> = ({
   return (
     <section className="max-h-[calc(100vh - 60px)] h-screen flex flex-col md:flex-row">
       {/* Image Section */}
-      <div className={`lex items-center justify-center w-full  ${widthClass}`}>
+      <div className={`flex items-center justify-center w-full  ${widthClass}`}>
         <Image
           src={`http://localhost:1337${imageSrc.url}`} width={400} height={600} alt="Section Image" className="object-cover w-full h-full"
         />

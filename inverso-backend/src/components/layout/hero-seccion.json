@@ -1,0 +1,56 @@
+{
+  "collectionName": "components_layout_hero_seccions",
+  "info": {
+    "displayName": "heroSeccion",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "subtitle": {
+      "type": "string"
+    },
+    "body": {
+      "type": "text"
+    },
+    "background": {
+      "type": "enumeration",
+      "enum": [
+        "black",
+        "white"
+      ],
+      "default": "black"
+    },
+    "imageSrc": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "imageWidth": {
+      "type": "enumeration",
+      "enum": [
+        "a20%",
+        "a30%",
+        "a40%",
+        "a50%"
+      ]
+    },
+    "reverse": {
+      "type": "boolean",
+      "default": false
+    },
+    "buttons": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.button"
+    }
+  }
+}

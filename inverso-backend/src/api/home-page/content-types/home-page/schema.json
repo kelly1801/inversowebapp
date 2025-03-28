@@ -20,7 +20,14 @@
       "type": "dynamiczone",
       "components": [
         "layout.top-nav",
-        "layout.seccion-espacios"
+        "layout.seccion-espacios",
+        "layout.spacer",
+        "layout.hero-seccion",
+        "layout.footer",
+        "layout.text-seccion",
+        "layout.map",
+        "layout.background-seccion",
+        "layout.about-seccion"
       ]
     }
   }

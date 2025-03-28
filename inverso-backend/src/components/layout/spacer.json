@@ -1,0 +1,12 @@
+{
+  "collectionName": "components_layout_spacers",
+  "info": {
+    "displayName": "spacer"
+  },
+  "options": {},
+  "attributes": {
+    "height": {
+      "type": "string"
+    }
+  }
+}

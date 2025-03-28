@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_layout_text_seccions",
+  "info": {
+    "displayName": "text-seccion"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "subtitle": {
+      "type": "string"
+    },
+    "body": {
+      "type": "text"
+    },
+    "buttons": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.button"
+    }
+  }
+}

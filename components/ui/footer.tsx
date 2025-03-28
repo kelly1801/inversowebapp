@@ -1,71 +1,46 @@
 import Link from "next/link";
 import Image from "next/image";
-import { JSX } from "react";
-
-interface FooterLink {
-  href: string;
-  label: string;
-}
-
-interface SocialMedia {
-  href: string;
-  icon: JSX.Element;
-}
-
-interface FooterProps {
-  logo?: string;
-  links?: FooterLink[];
-  socialMedia?: SocialMedia[];
-}
-
-const defaultLinks: FooterLink[] = [
-  { href: "/", label: "Homeeeeeeeeeeeeeeeeeeeeeeee" },
-  { href: "/about", label: "About Us" },
-  { href: "/services", label: "Services" },
-  { href: "/contact", label: "Contact" },
-];
-
-const defaultSocialMedia: SocialMedia[] = [
-  { href: "https://facebook.com", icon: <i className="fab fa-facebook" /> },
-  { href: "https://twitter.com", icon: <i className="fab fa-twitter" /> },
-  { href: "https://instagram.com", icon: <i className="fab fa-instagram" /> },
-];
+import { FooterProps } from "@/types/blocks";
 
 const Footer: React.FC<FooterProps> = ({
-  logo = "/logos/logo-inverted.png",
-  links = defaultLinks,
-  socialMedia = defaultSocialMedia,
+  logo,
+  links,
+  socialLinks,
 }) => {
   return (
     <footer className="bg-black text-white p-6">
-      <div className="container mx-auto flex flex-col md:flex-row justify-between items-center">
+      <div className="container mx-auto flex flex-col md:flex-row md:justify-between items-center">
         {/* Logo */}
-        <div>
-          <Image src={logo} width={120} height={50} alt="Logo" />
+        <div >
+          <Link href={logo.link}>
+          <Image src={`http://localhost:1337${logo.LogoImg.url}`} width={120} height={50} alt="Logo" />
+
+          </Link>
         </div>
 
         {/* Links */}
-        <nav className="flex flex-col items-start flex-wrap gap-4 mt-4 md:mt-0">
-          {links.map(({ href, label }) => (
+        <nav className="flex flex-col items-center md:items-start flex-wrap gap-4 mt-4 md:mt-0">
+          {links && links.map(({ href, Text }) => (
             <Link
               key={href}
               href={href}
-              className="hover:underline transition"
+              className="transition  before:absolute before:w-full before:h-0.5 before:bg-green-10 before:bottom-0 before:left-0 before:scale-x-0 before:transition-transform before:duration-300 hover:before:scale-x-100 hover:-translate-y-1"
             >
-              {label}
+              {Text}
             </Link>
           ))}
-        </nav>
-      </div>
-
-      {/* Social Media */}
-      <div className="flex justify-center gap-4 mt-6">
-        {socialMedia.map(({ href, icon }) => (
-          <Link key={href} href={href} className="text-xl hover:opacity-80">
-            {icon}
+           {/* Social Media */}
+      <div className="flex justify-center gap-4 mt-6 items-start">
+        {socialLinks && socialLinks.link.map(({ href, icon }) => (
+          <Link key={href} href={href} className="text-xlhover:opacity-80">
+            <Image src={`http://localhost:1337${icon.url}`} width={30} height={30} alt="icon"/>
           </Link>
         ))}
       </div>
+        </nav>
+      </div>
+
+     
     </footer>
   );
 };

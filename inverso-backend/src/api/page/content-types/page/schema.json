@@ -4,7 +4,8 @@
   "info": {
     "singularName": "page",
     "pluralName": "pages",
-    "displayName": "Page"
+    "displayName": "Page",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -20,7 +21,10 @@
       "type": "dynamiczone",
       "components": [
         "layout.top-nav",
-        "layout.seccion-espacios"
+        "layout.seccion-espacios",
+        "layout.hero-seccion",
+        "layout.spacer",
+        "layout.footer"
       ]
     }
   }

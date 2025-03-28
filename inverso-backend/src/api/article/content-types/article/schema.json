@@ -47,11 +47,7 @@
     },
     "blocks": {
       "type": "dynamiczone",
-      "components": [
-        "shared.quote",
-        "shared.rich-text",
-        "shared.slider"
-      ]
+      "components": []
     }
   }
 }

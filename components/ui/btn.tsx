@@ -9,7 +9,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 export const Btn: React.FC<ButtonProps> = ({ href, text,  ...props }) => {
   const buttonElement = (
     <button
-      className="cursor-pointer px-4 py-2 bg-green-600 text-white rounded-full hover:bg-green-700 transition"
+      className="cursor-pointer px-6 text-sm py-2 bg-green-600 text-white rounded-full hover:bg-green-700 transition"
       {...props} // Spread all button props
     >
       {text}
