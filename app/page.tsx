@@ -98,6 +98,67 @@ const fetchHomePageData = cache(async () => {
   return data.data.blocks || [];
 });
 
+// ✅ Memoized Data Fetcher to cache responses
+const fetchGlobalPageData = cache(async () => {
+  const BASE_URL = getStrapiURL();
+  const path = "/api/global";
+  const url = new URL(path, BASE_URL);
+
+  const query = qs.stringify(
+    {
+      populate: {
+        blocks: {
+          on: {
+            "layout.top-nav": {
+              populate: {
+                Logo: {
+                  populate: {
+                    LogoImg: {
+                      fields: ["url", "alternativeText", "name"],
+                    },
+                  },
+                },
+                links: { populate: true },
+              },
+            },
+            
+            "layout.footer": {
+              populate: {
+                logo: {
+                  populate: {
+                    LogoImg: {
+                      fields: ["url", "alternativeText", "name"],
+                    },
+                  },
+                },
+                links: { populate: true },
+                socialLinks: {
+                  populate: {
+                    link: {
+                      populate: {
+                        icon: { fields: ["url", "alternativeText", "name"] },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+    { encodeValuesOnly: true }
+  );
+
+  url.search = query;
+
+  const data = await fetchAPI(url.href, { method: "GET" });
+
+  if (!data?.data) notFound();
+
+  return data.data.blocks || [];
+});
+
 // ✅ Memoized Page Component
 const Page = async () => {
   const blocks = await fetchHomePageData();

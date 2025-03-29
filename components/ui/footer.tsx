@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { FooterProps } from "@/types/blocks";
 
+
 const Footer: React.FC<FooterProps> = ({
   logo,
   links,
