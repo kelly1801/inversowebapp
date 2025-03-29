@@ -591,6 +591,10 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
         'layout.hero-seccion',
         'layout.spacer',
         'layout.footer',
+        'layout.text-seccion',
+        'layout.map',
+        'layout.background-seccion',
+        'layout.about-seccion',
       ]
     >;
     createdAt: Schema.Attribute.DateTime;

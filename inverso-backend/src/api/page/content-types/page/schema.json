@@ -24,7 +24,11 @@
         "layout.seccion-espacios",
         "layout.hero-seccion",
         "layout.spacer",
-        "layout.footer"
+        "layout.footer",
+        "layout.text-seccion",
+        "layout.map",
+        "layout.background-seccion",
+        "layout.about-seccion"
       ]
     }
   }
